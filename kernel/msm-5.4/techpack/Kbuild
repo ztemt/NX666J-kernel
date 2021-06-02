@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: GPL-2.0-only
+TECHPACK?=y
+
+ifeq ($(wildcard $(srctree)/techpack/camera-zte),)
+techpack-dirs := $(shell find $(srctree)/techpack -maxdepth 1 -mindepth 1 -type d -not -name ".*")
+else
+techpack-dirs := $(shell find $(srctree)/techpack -maxdepth 1 -mindepth 1 -type d -not -name ".*" -not -name "camera")
+endif
+
+obj-${TECHPACK} += stub/ $(addsuffix /,$(subst $(srctree)/techpack/,,$(techpack-dirs)))
